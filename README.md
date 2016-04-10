@@ -22,10 +22,9 @@ must be adhered to!
 All SQL queries can be performed on the command line. Try <code>select * from student;</code>
 </br>
 </br>
-<strong>Note</strong>: When executing queries, be sure to end them with a semicolon <code>;</code> or psql will think you are entering a new line. If this happens,
-  simply type <code>;</code> and enter a new line.
+<strong>Note</strong>: When executing queries, be sure to end them with a semicolon <code>;</code> or psql will think you are entering a new line. If this happens, simply type <code>;</code> and enter a new line.
 
-To list all tables enter <code>\dt</code>. To describe a table enter <code>\d table-name</code>.
+To list all tables, enter <code>\dt</code>. To describe a table, enter <code>\d table-name</code>.
 
 
 
