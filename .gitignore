@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# Misc
+*.vcxproj*
+targetver.h
+*.sdf
+*.sln
