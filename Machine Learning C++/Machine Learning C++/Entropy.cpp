@@ -15,9 +15,17 @@ Entropy::~Entropy()
 {
 }
 
-float Entropy::calculate_impurity()
+/* Calculate the impurity (entropy) of an attribute. */
+float Entropy::calculate_impurity() 
 {
-	float impurity = 0.0;
+	return calculate_entropy(); // use function call simply for readability
+
+}
+
+/* Caclulate the entropy of an attribute. */
+float Entropy::calculate_entropy()
+{
+	float entropy = 0.0;
 	float probability;
 
 	if (probabilities.size == 0)
@@ -25,8 +33,15 @@ float Entropy::calculate_impurity()
 
 	for (auto iterator = probabilities.begin(); iterator != probabilities.end(); iterator++) {
 		probability = *iterator;
-		impurity -= probability*log2(probability);
+		entropy -= probability*log2(probability);
 	}
 
-	return impurity;
+	return entropy;
 }
+
+/* Calculate the expected conditional entropy of an attribute in relation to another attribute*/
+float Entropy::calculate_conditional_entropy()
+{
+	return FLT_MAX;
+}
+
