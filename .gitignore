@@ -34,3 +34,4 @@ targetver.h
 *.sln
 ipch
 stdafx.cpp
+*.vs*
