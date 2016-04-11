@@ -32,3 +32,5 @@
 targetver.h
 *.sdf
 *.sln
+ipch
+stdafx.cpp
