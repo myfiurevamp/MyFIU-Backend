@@ -12,6 +12,12 @@ ClassificationAlgorithm::~ClassificationAlgorithm()
 {
 }
 
+void ClassificationAlgorithm::initClassLabel(std::string _class_label)
+{
+	class_label = _class_label;
+	class_label_index = getAttributeIndex(_class_label);
+}
+
 int ClassificationAlgorithm::validateRecord(vector<string> record) // private
 {
 	int required_num_of_attributes = dataset_header.size();
@@ -44,6 +50,9 @@ int ClassificationAlgorithm::initDataset(vector<attribute> _dataset_header, vect
 	dataset_header = _dataset_header;
 	records = _records;
 
+	//num_of_attributes = dataset_header.size();
+	//num_of_records = records.size();
+
 	int result;
 
 	for (vector<string> record : records)
@@ -51,4 +60,18 @@ int ClassificationAlgorithm::initDataset(vector<attribute> _dataset_header, vect
 			return result;
 
 	return result = 0;
+}
+
+int ClassificationAlgorithm::getAttributeIndex(string string_attribute)
+{
+	int i = 0;
+
+	for (attribute dataset_header_attribute : dataset_header)
+	{
+		if (dataset_header_attribute.name == string_attribute)
+			return i;
+		i++;
+	}
+
+	return -1;
 }

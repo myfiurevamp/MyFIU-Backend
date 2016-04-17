@@ -6,13 +6,19 @@
 	class J48DecisionTree : public ClassificationAlgorithm
 	{
 	public:
-		J48DecisionTree(std::string _class_label);
-		J48DecisionTree(ImpurityMeasure* _impurity_measure, std::string _class_label);
+		J48DecisionTree();
+		//J48DecisionTree(std::string _class_label);
+		J48DecisionTree(ImpurityMeasure* _impurity_measure/*, std::string _class_label*/);
 		~J48DecisionTree();
 
-		void J48DecisionTree::buildDecisionTree() {};
+		void J48DecisionTree::buildDecisionTree();
+
 
 		virtual void predict(attribute class_attribute);
+
+		float getClassLabelImpurity();
+
+		float class_label_impurity;
 
 	protected:
 		j48_node* root;
@@ -20,6 +26,5 @@
 		ImpurityMeasure* impurity_measure;
 
 		std::string class_label;
-		float class_label_impurity;
 
 	};
