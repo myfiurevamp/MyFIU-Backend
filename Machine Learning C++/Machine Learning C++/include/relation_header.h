@@ -1,20 +1,22 @@
 #pragma once
-#include "attribute.h"
+#include "attribute_list.h"
 #include <vector>
 
-struct relation;
+struct relationObj;
 
 typedef struct relationHeader{
 
 public:
 	relationHeader();
 	~relationHeader();
-	relationHeader(std::vector<attribute> _all_attributes);
-	friend relation;
+	relationHeader(attributeList _all_attributes);
+	friend relationObj;
+
+	attributeList all_attributes;
+	int getIndexOfAttribute(std::string attribute_name);
+	int getNumOfColumns();
 
 private:
-	int size;
-	std::vector<attribute> all_attributes;
-	int getIndexOfAttribute(std::string attribute_name);
+	std::string name;
 
 } relationHeader;

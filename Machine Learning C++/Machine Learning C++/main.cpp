@@ -1,4 +1,6 @@
 #include "stdafx.h"
+
+
 // Machine Learning C++.cpp : Defines the entry point for the console application.
 //
 
@@ -16,36 +18,84 @@ static void printVec(std::vector<std::string> string_vector)
 
 }
 
-
-
-int main()
+int main(int argc, char* argv[])
 {
 
 	using namespace std;
 
-	/* Open and parse file with parser object */
-	DataFileParser* p = new ArffParser();
-	int res = p->openFile("TestData\\playing_tennis.arff");
-	int error = p->parseFile();
-	p->closeFile();
+	string data_file_string = string("dat\\student_transcript.arff");
 
-	/* Get relation name, attributes, and records from parse object */
-	string relation_name = p->getRelationName();
-	vector<attribute> all_attributes = p->getRelationHeader();
-	vector<vector<string>> records = p->getRecords();
+	/* Open and parse file with parser object, and get relationObj */
+	DataFileParser* parser_obj = new ArffParser();
+	int open_file_error_num = parser_obj->openFile(data_file_string);
+	cout << "Parsing Arff file...\n";
+	int parse_file_error_num = parser_obj->parseFile();
 
-	/* Create relation object */
-	relationHeader header = relationHeader(all_attributes);
-	relationData data = relationData(records);
-	relation relation_obj = relation(relation_name, all_attributes, records);
+	parser_obj->closeFile(); //redundant due to delete parse_obj call; delete SHOULD close file automatically if parser object is implemented correctly
+	cout << "Done Parsing Arff file...\n";
+	cout << "Extracting Relation Object...\n";
+	relationObj relation_obj = parser_obj->getRelationObj();
+	cout << "Deleting Parsing Object...\n";
+	delete parser_obj;
 
 	/* Create classifier object (classification algorithm), and build model based off of relation and class_label */
-	string class_label = "PlayTennis";
+	string class_label = "grade_received";
+	cout << "Initializing Decision Tree...\n";
 	J48DecisionTree* classifier = new J48DecisionTree(relation_obj, class_label); 
-	classifier->buildDecisionTree();
-	cout << "Class Label Impurity (" << class_label << "): " << classifier->getClassLabelImpurity() << endl;
+	string def = classifier->relation_obj.getTable().getColumn(relation_obj.getIndexOfAttribute(class_label)).getMajorityValue();
+	classifier->setDefaultClassLabel(def);
+	vector<string> ignored_attributes = { "transcript_id", "course_name", /*"semester_taken",*/ /*"course_num"*/}; //error when only omitting course_num
 
-	//classifier->initClassLabel(class_label);
+	//cout << "Building Decision Tree...\n";
+	//classifier->buildDecisionTree(); // predict should automatically call buildDecisionTree()
+	//cout << "Done building Decision Tree...\n";
+
+	/* Predict "grade_received" class label for record 
+	(8, COP 5725, Fall 2016, ? , ? , Principles of Database Management Systems, Computer Programming)
+	*/
+	vector<string> record_values = 
+		{"8", "COP 5727", "Fall 2016", "?", "?", "Principles of Database Management Systems", "Computer Programming"};
+
+	tableRow record = tableRow(record_values.begin(), record_values.end());
+	string predicted_class_label = classifier->predictIgnore(record, ignored_attributes.begin(), ignored_attributes.end());
+
+	cout << "Full Decision Tree:\n" << *classifier;
+
+	/* Print record */
+	cout << "\nPredicted class label of record (";
+	int i = 0;
+	for (string value : record_values)
+	{
+	if (i == 0)
+	cout << value;
+	else
+	cout << "," << value;
+
+	i++;
+	}
+	cout <<  "): " << predicted_class_label << endl;
+	
+
+	/* Predict "PlayTennis" class label for record (14,Rain,Mild,High,Strong,No) */
+	//vector<string> record_values = {"15", "Rain", "Hot", "High", "Weak", "No"};
+	//tableRow record = tableRow(record_values.begin(), record_values.end());
+	//string predicted_class_label = classifier->predict(record);
+
+	/* Print record */
+	/*cout << "\nPredicted class label of record (";
+	int i = 0;
+	for (string value : record_values)
+	{
+		if (i == 0)
+			cout << value;
+		else
+			cout << "," << value;
+
+		i++;
+	}
+	cout <<  "): " << predicted_class_label << endl;
+*/
+	//delete classifier;
 
 
     return 0;

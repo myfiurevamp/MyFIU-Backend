@@ -18,10 +18,18 @@ ImpurityMeasure::~ImpurityMeasure()
 }
 
 
-void ImpurityMeasure::setRelation(const relation& _relation_obj)
+
+void ImpurityMeasure::setRelationHeader(relationHeader _relation_header)
 {
-	relation_obj = _relation_obj;
-	num_of_relation_attributes = relation_obj.getNumOfAttributes();
+	relation_header = _relation_header;
 }
 
+bool ImpurityMeasure::isIgnoredAttribute(int attribute_index)
+{
+	if (find(ignored_attribute_indexes.begin(), ignored_attribute_indexes.end(), attribute_index) != ignored_attribute_indexes.end())
+		return true;
+	else
+		return false;
+
+}
 

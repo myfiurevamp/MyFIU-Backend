@@ -6,6 +6,8 @@
 
 typedef struct j48_node_branch {
 
+	j48_node_branch() { next = NULL; }
+	~j48_node_branch() { delete next; }
 	std::string attribute_value_name;
 	float attribute_value_impurity;
 	struct j48_node* next; // maximum of one node
@@ -15,23 +17,48 @@ typedef struct j48_node_branch {
 
 typedef struct j48_node {
 
+	j48_node() {};
+	~j48_node() 
+	{
+		for (struct j48_node_branch* branch : branches)
+			delete branch;
+	}
 	int attribute_index; // position of attribute in dataset_header 
-	int node_fanout;
+	//int node_fanout;
 	float impurity; //necessary?
 	bool is_leaf;
-	struct j48_node_branch* branches;
+	std::string class_label_value;
+	std::vector<struct j48_node_branch*> branches;
 
-	j48_node(int _attribute_index, std::vector<std::string> attribute_value_names, float _impurity) {
+	j48_node(int _attribute_index, attribute attr, float _impurity) {
 	
 		attribute_index = _attribute_index;
 		impurity = _impurity;
-		node_fanout = attribute_value_names.size();
-		branches = new j48_node_branch[node_fanout];
+		is_leaf = false;
+		//node_fanout = attr.getNumOfValues();
+		//branches = j48_node_branch[node_fanout];
 
-		for (int i = 0; i < node_fanout; i++)
-			branches[i].attribute_value_name = attribute_value_names[i];
+		for (std::string attr_value_name : attr) 
+		{
+			j48_node_branch* new_branch = new j48_node_branch;
+			new_branch->attribute_value_name = attr_value_name;
+			branches.push_back(new_branch);
+		}
 	
 	}
+
+	void setAsLeafNode(std::string _class_label_value)
+	{
+		is_leaf = true;
+		class_label_value = _class_label_value;
+
+		//std::vector<j48_node_branch*>::iterator b = &branches.begin();
+
+	}
+
+	auto begin() -> decltype (branches.begin()) { return branches.begin(); }
+	auto end() -> decltype (branches.end()) { return branches.end(); }
+
 
 } j48_node;
 

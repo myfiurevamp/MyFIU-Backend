@@ -28,7 +28,9 @@
 #include "include/classification_algorithm.h"
 #include "include/arff_parser.h"
 #include "include/data_file_parser.h"
-#include "include/relation.h"
+#include "include/relation_obj.h"
+#include "include/table_row.h"
+#include "include/json_parser.h"
 
 
 

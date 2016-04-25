@@ -1,5 +1,5 @@
 #pragma once
-#include "relation.h"
+#include "relation_obj.h"
 #include <string>
 
 #define RECORD_SIZE_ERROR -1;
@@ -9,23 +9,29 @@
 	{
 	public:
 		ClassificationAlgorithm();
+		ClassificationAlgorithm(std::string _class_label) { setClassLabel(_class_label); }
 		~ClassificationAlgorithm();
 		//TODO: create constructor to init relation and class label
 
-		int setRelation(relation _relation_obj);
+		int setRelation(relationObj _relation_obj);
 		void setClassLabel(std::string _class_label);
-		virtual void predict(attribute class_attribute) = 0;
+		virtual std::string predict(tableRow record) = 0;
 		//TODO: create function validaterelation() that checks for valid attribute names, repeated attribute names, etc.
+
+		//template <class InputIterator>
+		//virtual std::predictIgnore(tableRow record, InputIterator first, InputIterator last) = 0;
 
 
 		int class_label_index;
 	/*	int num_of_records;
 		int num_of_attributes;*/
 
+		relationObj relation_obj;
+
 	protected:
-		relation relation_obj;
 		std::string class_label;
-		int validateRecord(std::vector<std::string> record);
+		int validateRecord(tableRow record);
+		//std::vector<int> ignored_attribute_indexes;
 
 
 	};

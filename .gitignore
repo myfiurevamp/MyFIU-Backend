@@ -35,3 +35,8 @@ targetver.h
 ipch
 stdafx.cpp
 *.vs*
+*.idb
+*.pdb
+*.tlog
+*.log
+*.enc
