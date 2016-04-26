@@ -1,25 +1,3 @@
-
-#if (_MSC_VER)
-    #include <memory>
-#else
-    #if __cplusplus<201103L
-        #include <tr1/memory>
-// import smart pointers utils into std
-namespace std {
-  using std::tr1::shared_ptr;
-  using std::tr1::weak_ptr;
-  using std::tr1::enable_shared_from_this;
-  using std::tr1::static_pointer_cast;
-  using std::tr1::dynamic_pointer_cast;
-  using std::tr1::const_pointer_cast;
-  using std::tr1::__dynamic_cast_tag;
-}
-    #else
-        #include <memory>
-//still have to deal with __dynamic_cast_tag here!
-    #endif
-#endif
-
 #include <iostream>
 #include <pqxx/pqxx>
 #include "data_file_parser.h"
@@ -67,9 +45,12 @@ class MyFIUPgParser : public DataFileParser
   void setIgnoredColumnNums(std::vector<int> _ignored_column_nums);
   
  private:
+  pqxx::connection* conn;
+  pqxx::nontransaction* query_obj;
+  std::string conn_string;
   std::string course_table_name;
   int num_of_columns;
-  std::string type_list;
+  std::vector<std::string> type_list;
   std::vector<int> ignored_column_nums;
   
   

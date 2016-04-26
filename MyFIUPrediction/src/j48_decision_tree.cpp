@@ -145,7 +145,7 @@ void J48DecisionTree::buildDecisionTree()
 
 string J48DecisionTree::predict(tableRow record)
 {
-	buildDecisionTree();
+  //buildDecisionTree();
 
 	string predicted_class_label = recPredict(record, root);
 	return predicted_class_label;
