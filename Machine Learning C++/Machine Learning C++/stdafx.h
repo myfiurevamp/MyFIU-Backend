@@ -5,10 +5,8 @@
 
 #pragma once
 
-#include "targetver.h"
-
 #include <stdio.h>
-#include <tchar.h>
+//#include <tchar.h>
 
 
 #include <math.h> 
@@ -22,7 +20,7 @@
 #include <string>
 
 #include "include/attribute.h"
-#include "include/Entropy.h"
+#include "include/entropy.h"
 #include "include/impurity_measure.h"
 #include "include/j48_decision_tree.h"
 #include "include/classification_algorithm.h"

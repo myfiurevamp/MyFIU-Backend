@@ -19,7 +19,9 @@
 		vector<attribute> attr_list;
 		vector<vector<string>> records;
 
+
 		relation_name = parseName();
+
 		attr_list = parseAttributeList();
 		records = parseRecords();
 
@@ -31,7 +33,7 @@
 		return 0;
 	}
 
-	string::const_iterator& DataFileParser::tokenize(string::const_iterator& input_line_iterator, const string& input_line, string& string_token, const vector<string>& delimiters)
+	string::const_iterator DataFileParser::tokenize(string::const_iterator input_line_iterator, const string& input_line, string& string_token, const vector<string>& delimiters)
 	{
 		string_token = "";
 		string character;
@@ -82,7 +84,7 @@
 		else return false;
 	}
 	
-	vector<string> DataFileParser::tokenizeAll(string::const_iterator& input_line_iterator, const string& input_line, const vector<string>& delimiters)
+	vector<string> DataFileParser::tokenizeAll(string::const_iterator input_line_iterator, const string& input_line, const vector<string>& delimiters)
 	{
 
 		vector<string> all_string_tokens;

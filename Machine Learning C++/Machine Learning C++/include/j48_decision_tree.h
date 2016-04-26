@@ -39,7 +39,6 @@ TODO: deal with decision trees that don't cover all rules
 
 			buildDecisionTree();
 
-			j48_node* curr_node = root;
 			std::string predicted_class_label = recPredict(record, root);
 
 			return predicted_class_label;

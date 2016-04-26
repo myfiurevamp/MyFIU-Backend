@@ -1,7 +1,7 @@
 //#include "../../stdafx.h"
 #include <iostream>
 #include "../include/j48_decision_tree.h"
-#include "../include/Entropy.h" // delete later
+#include "../include/entropy.h" // delete later
 
 using namespace std;
 
@@ -146,8 +146,6 @@ void J48DecisionTree::buildDecisionTree()
 string J48DecisionTree::predict(tableRow record)
 {
 	buildDecisionTree();
-
-	j48_node* curr_node = root;
 
 	string predicted_class_label = recPredict(record, root);
 	return predicted_class_label;

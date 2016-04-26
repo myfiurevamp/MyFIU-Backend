@@ -1,4 +1,4 @@
-#include "..\include\relation_table.h"
+#include "../include/relation_table.h"
 
 using namespace std;
 

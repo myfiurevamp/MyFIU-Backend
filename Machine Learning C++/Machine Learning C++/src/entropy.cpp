@@ -1,5 +1,5 @@
 //#include "../../../../stdafx.h"
-#include "../include/Entropy.h"
+#include "../include/entropy.h"
 #include <math.h> 
 #include <cfloat>
 //#include <vector>

@@ -28,8 +28,8 @@ public:
 	virtual std::vector<attribute> parseAttributeList() = 0;
 	virtual std::vector<std::vector<std::string>> parseRecords() = 0;
 
-	std::vector<std::string> tokenizeAll(std::string::const_iterator& input_line_iterator, const std::string& input_line, const std::vector<std::string>& delimiters);
-	std::string::const_iterator& tokenize(std::string::const_iterator& input_line_iterator, const std::string & input_line, std::string & string_token, const std::vector<std::string>& delimiters);
+	std::vector<std::string> tokenizeAll(std::string::const_iterator input_line_iterator, const std::string& input_line, const std::vector<std::string>& delimiters);
+	std::string::const_iterator tokenize(std::string::const_iterator input_line_iterator, const std::string & input_line, std::string & string_token, const std::vector<std::string>& delimiters);
 
 	static bool contains(std::string s, char c);
 	relationObj getRelationObj() { return relation_obj; }

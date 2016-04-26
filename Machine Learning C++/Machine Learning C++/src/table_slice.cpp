@@ -66,7 +66,7 @@ string tableSlice::getMajorityValue()
 			if (p.first == value)
 			{
 				p.second++;
-				does_value_exist == true;
+				does_value_exist = true;
 			}
 		}
 

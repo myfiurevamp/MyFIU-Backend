@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
 	using namespace std;
 
-	string data_file_string = string("dat\\student_transcript.arff");
+	string data_file_string = string("dat/student_transcript.arff");
 
 	/* Open and parse file with parser object, and get relationObj */
 	DataFileParser* parser_obj = new ArffParser();

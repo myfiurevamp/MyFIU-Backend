@@ -47,6 +47,7 @@
 
 	std::string ArffParser::parseName()
 	{
+
 		using namespace std;
 
 		string input_line;
@@ -57,12 +58,11 @@
 		const string arff_attribute_tag = "@ATTRIBUTE";
 		const string arff_data_tag = "@DATA";
 		const string arff_comment_tag = "%";
-
 		string _relation_name;
 
 		/* Get relation name */
-		while (getline(arff_file_stream, input_line))
-		{
+		while (std::getline(arff_file_stream, input_line))
+		{	
 			delimiters = { " ", "\t", "\n" };
 			auto input_line_iterator = tokenize(input_line.begin(), input_line, string_token, delimiters);
 
@@ -87,7 +87,7 @@
 	{
 		using namespace std;
 
-		string input_line;
+	        string input_line;
 		string string_token;
 		vector<string> delimiters;
 
@@ -118,8 +118,11 @@
 			{ //cout << "data tag\n";
 				if (attribute_count > 0)
 					break;
-				else
-					throw exception("No Attributes");
+				else{
+				  cout << "No Attributes\n";
+				  exit(-1);
+				  // throw std::exception(std::string("No Attributes"));
+				}
 			}
 			else if (string_token == arff_attribute_tag)
 			{
@@ -153,8 +156,11 @@
 
 						char last_character = attribute_type.back();
 						if (last_character != '}')
-							throw exception("No close parens");
-
+						  {
+						    cout << "No close parens\n";
+						    exit(-1);
+						    //throw exception("No close parens");
+						  }
 						attribute_type.pop_back(); // remove close paren
 
 						new_attribute.type = attribute_type::NOMINAL;
@@ -162,8 +168,12 @@
 						vector<string> all_tokens = tokenizeAll(attribute_type.begin(), attribute_type, delimiters);
 						new_attribute.setAllValues(all_tokens.begin(), all_tokens.end());
 					}
-					else
-						throw exception("Attribute Error");
+					else{
+					  cout << "Attribute Error\n";
+					  exit(-1);
+					  //throw exception("Attribute Error");
+				
+					}
 				}
 
 				_attr_list.push_back(new_attribute);
@@ -171,8 +181,11 @@
 
 				continue;
 			}
-			else
-				throw exception("No relation name");
+			else{
+			  cout << "No relation name\n";
+			  exit(-1);
+			  //throw exception("No relation name");
+			}
 		} /* End get relation header */
 
 		return _attr_list;

@@ -29,7 +29,7 @@ public:
 	{
 		for (InputIterator all_values_iterator = first; all_values_iterator != last; all_values_iterator++)
 		{
-			string value = *all_values_iterator;
+		        std::string value = *all_values_iterator;
 			all_values.push_back(value);
 		}
 
